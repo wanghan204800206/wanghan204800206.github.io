@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>我的技术与生活——小站首页 | Hexo</title>
+  <title>我的技术与生活——Spark（Pyspark基础编码环境） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/public.css" />
@@ -16,7 +16,7 @@
 
   <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
   <script>
-    document.title = `我的技术与生活——小站首页`
+    document.title = `我的技术与生活——Spark（Pyspark基础编码环境）`
   </script>
 <meta name="generator" content="Hexo 6.3.0"></head>
 
@@ -346,172 +346,152 @@
 </div></div>
       <div id="main-container" class="main-container">
 
-<div class="index">
-  <div class="index-left">
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/13/stand-alone%E5%92%8CHA%E5%92%8CYarn/">stand-alone,HA,Yarn </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/spark-local/">Spark Local环境部署 </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/Docker/">Docker </a>
-          <div>
-            
+
+  <style>
+pre::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  background-color:#F5F5F5;
+}
+/*定义滚动条轨道
+内阴影+圆角*/
+pre::-webkit-scrollbar-track {
+  background-color:#F5F5F5;
+}
+/*定义滑块
+内阴影+圆角*/
+pre::-webkit-scrollbar-thumb {
+  background-color: rgb(69, 83, 100);
+}
+
+pre:active {
+  background-color: rgb(81, 95, 116);
+}
+</style>
+
+<div class="article-container">
+  <div class="article">
+    <h1 class="article-title">Spark（Pyspark基础编码环境）</h1>
+    <div class="article-info">
+      <div class="article-info--item">
+        <div class="article-info--info">
+          
+          <div class="article-info--categories">
+            <span>分类：</span>
             
           </div>
-          <div class="bg"></div>
+          
+          
+          <div class="article-info--tags">
+            <span>标签：</span>
+            
+          </div>
+          
+          <p class="article-info--date">日期：2023-06-09 08:36:30</p>
         </div>
+        <img src="/imgs/default-cover.webp" alt="" class="article-cover">
       </div>
+    </div>
+    <article class="article-content">
+      <h1 id="1-本地PySpark环境配置"><a href="#1-本地PySpark环境配置" class="headerlink" title="1.本地PySpark环境配置"></a>1.本地PySpark环境配置</h1><p>(1).将课程资料中的hadoop-3.3.0文件复制到一个地方，如E:\hadoop-3.3.0<br>(2).将文件夹内bin中的hadoop.dll复制到:c:\Windows\System32里面<br>(3).配置HADOOP_HOME环境变量指向hadoop-3.3.0文件夹的路径<br><img src="/../img/1.png"><br><img src="/../img/2.png"><br>(4).在windows系统中安装Anaconda和PySpark</p>
+<h1 id="2-PyCharm配置Python解释器"><a href="#2-PyCharm配置Python解释器" class="headerlink" title="2.PyCharm配置Python解释器"></a>2.PyCharm配置Python解释器</h1><p>(1).配置本地解释器<br>创建PythonProject工程设置Python解析器<br><img src="/../img/3.png"><br>选择conda虚拟环境pyspark中的Python.exe解释器<br><img src="/../img/4.png"><br><img src="/../img/5.png"><br>(2).配置远程SSH Linux解释器<br>设置远程SSH python PySpark环境<br>添加新的远程连接<br><img src="/../img/6.png"><br><img src="/../img/7.png"><br>设置虚拟机Python环境路径<br><img src="/../img/8.png"><br>即可连接到虚拟机。</p>
+<h1 id="3-WordCount代码实战"><a href="#3-WordCount代码实战" class="headerlink" title="3.WordCount代码实战"></a>3.WordCount代码实战</h1><p>(1).本地准备文件word.txt<br>1234567890-<br>qwertyuio<br>asdfghjkl;<br><img src="/../img/9.png"><br>(2).切换到远程SSH解释器执行PySpark代码：<br>from pyspark import SparkConf, SparkContext<br>#import os<br>#os.environ[‘PYSPARK_PYTHON’]&#x3D;”E:\ProgramData\Anaconda3\envs\pyspark\python.exe”<br>if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘:<br>    conf &#x3D; SparkConf().setAppName(“WordCountHelloWorld”).setMaster(“local[*]”)<br>    # 通过SparkConf对象构建SparkContext对象<br>    sc &#x3D; SparkContext(conf&#x3D;conf)</p>
+<pre><code># 需求 : wordcount单词计数, 读取HDFS上的words.txt文件, 对其内部的单词统计出现 的数量
+# 读取文件
+#file_rdd = sc.textFile(&quot;hdfs://node2:8020/input/words.txt&quot;)
+file_rdd = sc.textFile(&quot;file:///tmp/pycharm_project_463/data/input/words.txt&quot;)
+#file_rdd = sc.textFile(&quot;../data/input/words.txt&quot;)
+# 将单词进行切割, 得到一个存储全部单词的集合对象
+words_rdd = file_rdd.flatMap(lambda line: line.split(&quot; &quot;))
+
+# 将单词转换为元组对象, key是单词, value是数字1
+words_with_one_rdd = words_rdd.map(lambda x: (x, 1))
+
+# 将元组的value 按照key来分组, 对所有的value执行聚合操作(相加)
+result_rdd = words_with_one_rdd.reduceByKey(lambda a, b: a + b)
+
+# 通过collect方法收集RDD的数据打印输出结果
+</code></pre>
+<p>print(result_rdd.collect())<br>执行结果：<br><img src="/../img/10.png"><br>注：直接执行这个代码可能会有两种报错<br>报错1：pyspark版本不对，需要将pyspark的版本调到3.2.0<br>使用语句pip install pyspark&#x3D;&#x3D;3.2.0 -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a><br>报错2：运行时Pycharn无法连接到虚拟机<br>在编辑配置中将jdk、python、pyspark的环境变量填入即可解决<br><img src="/../img/11.png"><br><img src="/../img/12.png"></p>
+
+    </article>
+    
+    <div class="read-nums">
+      <!-- id 将作为查询条件 -->
+      <span id="2023/06/09/pyspark/" class="leancloud_visitors" data-flag-title="Your Article Title">
+        <em class="post-meta-item-text">浏览量</em>
+        <i class="leancloud-visitors-count"></i>
+      </span>
+    </div>
+    <div class="comments-intro">
+      <h2>评论区</h2>
+      <p>欢迎你留下宝贵的意见，昵称输入QQ号会显示QQ头像哦~</p>
+    </div>
+    <div id="vcomments" class="vcomments"></div>
     
   </div>
-  <div class="index-center">
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/12/Git%E9%85%8D%E7%BD%AE/">Git </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
+  <div class="article-catelogue">
+    <div class="article-catelogue--wrapper">
+      <div class="catelogue catelogue-1">
+        <h3>目录</h3>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%9C%AC%E5%9C%B0PySpark%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">1.本地PySpark环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-PyCharm%E9%85%8D%E7%BD%AEPython%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">2.PyCharm配置Python解释器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-WordCount%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98"><span class="toc-number">3.</span> <span class="toc-text">3.WordCount代码实战</span></a></li></ol>
       </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/hive/">hive部署 </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/pyspark/">Spark（Pyspark基础编码环境） </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-  </div>
-  <div class="index-right">
-    <div class="index-right-wrapper">
       
+        <div class="catelogue catelogue-2">
+          
+            <p>
+              <span>上一篇：</span>
+              <a href="/2023/06/09/Docker/">Docker</a>
+            </p>
+           
+          
+        </div>
       
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">2023年06月</a><span class="archive-list-count">6</span></li></ul>
     </div>
   </div>
 </div>
 
+<script src="http://cdn.yangxiang.cc/prism.js"></script>
 
 <script>
-  var allImgBoxs = document.querySelectorAll('.index-article--box');
-  var windowHeight = window.innerHeight;
-  var boxs = Array.from(allImgBoxs);
-  var timer = null;
-  boxs.forEach((box, idx) => {
-    if (!window.loadImageSet || !window.loadImageSet.includes(idx)) {
-      box.classList.add('img-loading');
-    } else {
-      const imgDom = box.querySelector('img');
-      imgDom.src = imgDom.dataset.cover;
-    }
-  });
+  // var定义，避免pjax重新进来造成的重复声明错误
+  var config = JSON.parse('{"enable":true,"appId":"Pf8zCXGEH1qsprnWfikVVujL-gzGzoHsz","appKey":"qOqoiUHhH1TGtLRUYURkLRQX","placeholder":"请留下你宝贵的意见吧~","meta":["nick"],"recordIP":true,"visitor":true,"enableQQ":true}')
+  new Valine({
+    el: '#vcomments',
+    appId: config.appId,
+    appKey: config.appKey,
+    placeholder: config.placeholder,
+    meta: config.meta,
+    recordIP: config.recordIP,
+    visitor: config.visitor,
+    enableQQ: config.enableQQ,
+    path: '2023/06/09/pyspark/'
+  })
+</script>
 
-  function scrollFn() {
-    if (timer) {
-      return;
-    }
-    timer = setTimeout(() => {
-      loadImage();
-      timer = null;
-    }, 100)
-  }
 
-  if (!window.loadedImage) {
-    document.addEventListener('scroll', scrollFn);
-  }
+<script>
+  $(document).on('pjax:complete', function() {
+    const tocs = document.querySelector('.toc')
+    const links = tocs ? tocs.querySelectorAll('a') : []
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        const href = decodeURIComponent(e.href)
+        href.search(/#(.*)/)
+        const id = RegExp.$1
+        const target = document.querySelector('#' + id)
+        const top = target.offsetTop
+        document.documentElement.scrollTo({
+          top: top - 100,
+          behavior: 'smooth'
+        })
+        e.preventDefault()
+      })
+    })
+  })
+</script> 
 
-  function loadImage() {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop;
-    if (boxs.every(box => box.loadedImage)) {
-      document.removeEventListener('scroll', scrollFn);
-      window.loadedImage = 1;
-      return;
-    }
-    boxs.forEach((box, idx) => {
-      if (box.loadedImage) {
-        return;
-      }
-      if (box.getBoundingClientRect().top < windowHeight) {
-        const imgDom = box.querySelector('img');
-        imgDom.src = imgDom.dataset.cover;
-        imgDom.onload = () => {
-          box.classList.remove('img-loading')
-          box.loadedImage = true;
-          if (window.loadImageSet) {
-            window.loadImageSet.push(idx);
-          } else {
-            window.loadImageSet = [];
-            window.loadImageSet.push(idx);
-          }
-        }
-      }
-    });
-  }
-
-  window.loadImageFn = loadImage;
-</script> </div>
+</div>
       <div class="main-right-wrapper"><div class="main-right">
   <div class="main-right--board">
     <div class="main-right--title">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>我的技术与生活——小站首页 | Hexo</title>
+  <title>我的技术与生活——Spark Local环境部署 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/public.css" />
@@ -16,7 +16,7 @@
 
   <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
   <script>
-    document.title = `我的技术与生活——小站首页`
+    document.title = `我的技术与生活——Spark Local环境部署`
   </script>
 <meta name="generator" content="Hexo 6.3.0"></head>
 
@@ -346,172 +346,177 @@
 </div></div>
       <div id="main-container" class="main-container">
 
-<div class="index">
-  <div class="index-left">
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/13/stand-alone%E5%92%8CHA%E5%92%8CYarn/">stand-alone,HA,Yarn </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/spark-local/">Spark Local环境部署 </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/Docker/">Docker </a>
-          <div>
-            
+
+  <style>
+pre::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  background-color:#F5F5F5;
+}
+/*定义滚动条轨道
+内阴影+圆角*/
+pre::-webkit-scrollbar-track {
+  background-color:#F5F5F5;
+}
+/*定义滑块
+内阴影+圆角*/
+pre::-webkit-scrollbar-thumb {
+  background-color: rgb(69, 83, 100);
+}
+
+pre:active {
+  background-color: rgb(81, 95, 116);
+}
+</style>
+
+<div class="article-container">
+  <div class="article">
+    <h1 class="article-title">Spark Local环境部署</h1>
+    <div class="article-info">
+      <div class="article-info--item">
+        <div class="article-info--info">
+          
+          <div class="article-info--categories">
+            <span>分类：</span>
             
           </div>
-          <div class="bg"></div>
+          
+          
+          <div class="article-info--tags">
+            <span>标签：</span>
+            
+          </div>
+          
+          <p class="article-info--date">日期：2023-06-09 11:29:44</p>
         </div>
+        <img src="/imgs/default-cover.webp" alt="" class="article-cover">
       </div>
+    </div>
+    <article class="article-content">
+      <h1 id="Spark-Local环境部署"><a href="#Spark-Local环境部署" class="headerlink" title="Spark Local环境部署"></a>Spark Local环境部署</h1><p>首先，要有python3.8,JDK 1.8并且我们需要将Python环境安装到虚拟机和windows本机上<br>安装Anaconda3安装如下：</p>
+<ol>
+<li>安装Anaconda3</li>
+<li>上传安装包，Anaconda3-2021.05-Linux-x86_64.sh到虚拟机上</li>
+</ol>
+<p><img src="/../image/%E5%9B%BE%E7%89%871.png" alt="图片1.png"><br>3. 安装：sh .&#x2F;Anaconda3-2021.05-Linux-x86_64.s</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%872.png" alt="图片2.png"><br>看到please,press ENTER to continue直接回车，直到看见询问你是否接受协议</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%873.png" alt="图片3.png"><br>输入YES，之后他会问你将Anaconda3安装到哪</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%874.png" alt="图片4.png"><br>注意不要打错，错了可以ctrl + c 停止重新安装，推荐放在&#x2F;export&#x2F;server&#x2F;anaconda3<br>之后，询问你是否初始化，输入yes后安装完成</p>
+<p>我们退出finalshell，重新进入就可以看见，开头有base，这就代表已经安装成功。</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%875.png" alt="图片5.png"><br>（base）代表是默认的虚拟环境<br>（1）我们需要创建pyspark的环境，基于python3.8</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n pyspark python=3.8</span><br></pre></td></tr></table></figure>
+<p><img src="/../image/%E5%9B%BE%E7%89%876.png"><br><img src="/../image/%E5%9B%BE%E7%89%877.png"><br>（2）切换到pyspark虚拟环境内</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate pyspark</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../image/%E5%9B%BE%E7%89%878.png" alt="8"><br>开头的base变成pyspark代表成功切换到pyspark环境<br>（3）在虚拟环境中安装包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyspark==3.2.0 -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+<p>我们直接安装3.2.0版本，防止之后的因为版本过低使用时报错</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%879.png" alt="9"><br>以上是linux虚拟环境上安装我们也需要在windons上安装<br>官网下载:[<a target="_blank" rel="noopener" href="https://www.anaconda.com/products/individual#Downloads]">https://www.anaconda.com/products/individual#Downloads]</a></p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8710.png" alt="10"><br><img src="/../image/%E5%9B%BE%E7%89%8711.png" alt="11"><br>最后不用勾选，直接Finish完成安装<br>我们到菜单搜索Anaconda</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8712.png" alt="12"><br>双击打开，</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8713.png" alt="13"><br>出现base代表成功<br>之后重复上述（1）（2）（3）的操作，下载pyspark 并安装包<br>到这里我们部署spark local的前提已经做好了！<br>1.解压下载的Spark安装包到&#x2F;export&#x2F;server&#x2F;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz -C /export/server/</span><br></pre></td></tr></table></figure>
+<p>2.设置软连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/</span><br><span class="line">ln -s /export/server/spark-3.2.0-bin-hadoop3.2 /spark</span><br></pre></td></tr></table></figure>
+<p><img src="/../image/%E5%9B%BE%E7%89%8714.png" alt="14"><br>3.配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p><img src="/../image/%E5%9B%BE%E7%89%8715.png" alt="15"><br>添加以下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#JAVA_HOME</span><br><span class="line">export JAVA_HOME=/export/server/jdk</span><br><span class="line">#HADOOP_HOME</span><br><span class="line">export HADOOP_HOME=/export/server/Hadoop</span><br><span class="line">#SPARK_HOME</span><br><span class="line">export SPARK_HOME=/export/server/spark</span><br><span class="line">#HADOOP_CONF_DIR</span><br><span class="line">export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop</span><br><span class="line">#PYSPARK_PYTHON</span><br><span class="line">export PYSPARK_PYTHON=/export/server/anaconda3/envs/pyspark/bin/python</span><br></pre></td></tr></table></figure>
+<p><img src="/../image/%E5%9B%BE%E7%89%8716.png" alt="16"><br><img src="/../image/%E5%9B%BE%E7%89%8717.png" alt="17"><br>PYSPARK_PYTHON和 JAVA_HOME 需要同样配置在: &#x2F;root&#x2F;.bashrc中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#JAVA_HOME</span><br><span class="line">export JAVA_HOME=/export/server/jdk</span><br><span class="line">#PYSPARK_PYTHON</span><br><span class="line">export PYSPARK_PYTHON=/export/server/anaconda3/envs/pyspark/bin/python</span><br></pre></td></tr></table></figure>
+<p>4.保存之后，记得刷新source &#x2F;etc&#x2F;profile<br>5.测试<br>bin&#x2F;pyspark 程序, 可以提供一个  <code>交互式</code>的 Python解释器环境, 在这里面可以写普通python代码, 以及spark代码<br>首先进入pyspark环境下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate pyspark</span><br></pre></td></tr></table></figure>
+<p><img src="/../image/%E5%9B%BE%E7%89%8718.png" alt="18"><br>打开HDFS集群<br><img src="/../image/%E5%9B%BE%E7%89%8719.png" alt="19"><br>我们在&#x2F;export&#x2F;server&#x2F;spark目录下输入bin&#x2F;pyspark<br>如果出现拒绝连接的报错<br>可以查看集群，或者DataNode的内存不够了，开启了安全模式，使用hdfs dfsadmin -safemode leave关闭。</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8720.png" alt="20"><br>如果是上图的报错，是因为他没有在HDFS上生成存储日志的目录，你可以自己创建<br><img src="/../image/25.png" alt="25"><br><img src="/../image/%E5%9B%BE%E7%89%8721.png" alt="21"></p>
+<p>这就已经代表我们进入spark了，现在我们可以运行代码试一下</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8722.png" alt="22"><br>我们可以在4040端口使用浏览器打开它</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8723.png" alt="23"><br>如果4040被占用找不到可以向后查找4041……<br>在虚拟机中jps一下</p>
+<p><img src="/../image/%E5%9B%BE%E7%89%8724.png" alt="24"><br>可以看到local的进程，既是master也是worker<br>bin&#x2F;spark-shell - 了解<br>同样是一个解释器环境, 和<code>bin/pyspark</code>不同的是, 这个解释器环境 运行的不是python代码, 而是scala程序代码<br>bin&#x2F;spark-submit (PI)<br>作用: 提交指定的Spark代码到Spark环境中运行<br>使用方法:</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>bin&#x2F;spark-submit [可选的一些选项] jar包或者python代码的路径 [代码的参数]</p>
+
+    </article>
+    
+    <div class="read-nums">
+      <!-- id 将作为查询条件 -->
+      <span id="2023/06/09/spark-local/" class="leancloud_visitors" data-flag-title="Your Article Title">
+        <em class="post-meta-item-text">浏览量</em>
+        <i class="leancloud-visitors-count"></i>
+      </span>
+    </div>
+    <div class="comments-intro">
+      <h2>评论区</h2>
+      <p>欢迎你留下宝贵的意见，昵称输入QQ号会显示QQ头像哦~</p>
+    </div>
+    <div id="vcomments" class="vcomments"></div>
     
   </div>
-  <div class="index-center">
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/12/Git%E9%85%8D%E7%BD%AE/">Git </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
+  <div class="article-catelogue">
+    <div class="article-catelogue--wrapper">
+      <div class="catelogue catelogue-1">
+        <h3>目录</h3>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spark-Local%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="toc-number">1.</span> <span class="toc-text">Spark Local环境部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">语法</span></a></li></ol></li></ol>
       </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/hive/">hive部署 </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/pyspark/">Spark（Pyspark基础编码环境） </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-  </div>
-  <div class="index-right">
-    <div class="index-right-wrapper">
       
+        <div class="catelogue catelogue-2">
+          
+            <p>
+              <span>上一篇：</span>
+              <a href="/2023/06/12/Git配置/">Git</a>
+            </p>
+           
+          
+            <p>
+              <span>下一篇</span>
+              <a href="/2023/06/09/hive/">hive部署</a>
+            </p>
+          
+        </div>
       
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">2023年06月</a><span class="archive-list-count">6</span></li></ul>
     </div>
   </div>
 </div>
 
+<script src="http://cdn.yangxiang.cc/prism.js"></script>
 
 <script>
-  var allImgBoxs = document.querySelectorAll('.index-article--box');
-  var windowHeight = window.innerHeight;
-  var boxs = Array.from(allImgBoxs);
-  var timer = null;
-  boxs.forEach((box, idx) => {
-    if (!window.loadImageSet || !window.loadImageSet.includes(idx)) {
-      box.classList.add('img-loading');
-    } else {
-      const imgDom = box.querySelector('img');
-      imgDom.src = imgDom.dataset.cover;
-    }
-  });
+  // var定义，避免pjax重新进来造成的重复声明错误
+  var config = JSON.parse('{"enable":true,"appId":"Pf8zCXGEH1qsprnWfikVVujL-gzGzoHsz","appKey":"qOqoiUHhH1TGtLRUYURkLRQX","placeholder":"请留下你宝贵的意见吧~","meta":["nick"],"recordIP":true,"visitor":true,"enableQQ":true}')
+  new Valine({
+    el: '#vcomments',
+    appId: config.appId,
+    appKey: config.appKey,
+    placeholder: config.placeholder,
+    meta: config.meta,
+    recordIP: config.recordIP,
+    visitor: config.visitor,
+    enableQQ: config.enableQQ,
+    path: '2023/06/09/spark-local/'
+  })
+</script>
 
-  function scrollFn() {
-    if (timer) {
-      return;
-    }
-    timer = setTimeout(() => {
-      loadImage();
-      timer = null;
-    }, 100)
-  }
 
-  if (!window.loadedImage) {
-    document.addEventListener('scroll', scrollFn);
-  }
+<script>
+  $(document).on('pjax:complete', function() {
+    const tocs = document.querySelector('.toc')
+    const links = tocs ? tocs.querySelectorAll('a') : []
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        const href = decodeURIComponent(e.href)
+        href.search(/#(.*)/)
+        const id = RegExp.$1
+        const target = document.querySelector('#' + id)
+        const top = target.offsetTop
+        document.documentElement.scrollTo({
+          top: top - 100,
+          behavior: 'smooth'
+        })
+        e.preventDefault()
+      })
+    })
+  })
+</script> 
 
-  function loadImage() {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop;
-    if (boxs.every(box => box.loadedImage)) {
-      document.removeEventListener('scroll', scrollFn);
-      window.loadedImage = 1;
-      return;
-    }
-    boxs.forEach((box, idx) => {
-      if (box.loadedImage) {
-        return;
-      }
-      if (box.getBoundingClientRect().top < windowHeight) {
-        const imgDom = box.querySelector('img');
-        imgDom.src = imgDom.dataset.cover;
-        imgDom.onload = () => {
-          box.classList.remove('img-loading')
-          box.loadedImage = true;
-          if (window.loadImageSet) {
-            window.loadImageSet.push(idx);
-          } else {
-            window.loadImageSet = [];
-            window.loadImageSet.push(idx);
-          }
-        }
-      }
-    });
-  }
-
-  window.loadImageFn = loadImage;
-</script> </div>
+</div>
       <div class="main-right-wrapper"><div class="main-right">
   <div class="main-right--board">
     <div class="main-right--title">
