@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>我的技术与生活——小站首页 | Hexo</title>
+  <title>我的技术与生活——kafka | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/public.css" />
@@ -16,7 +16,7 @@
 
   <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
   <script>
-    document.title = `我的技术与生活——小站首页`
+    document.title = `我的技术与生活——kafka`
   </script>
 <meta name="generator" content="Hexo 6.3.0"></head>
 
@@ -346,187 +346,309 @@
 </div></div>
       <div id="main-container" class="main-container">
 
-<div class="index">
-  <div class="index-left">
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/24/Kafka/">kafka </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/12/Git%E9%85%8D%E7%BD%AE/">Git </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/hive/">hive部署 </a>
-          <div>
-            
+
+  <style>
+pre::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  background-color:#F5F5F5;
+}
+/*定义滚动条轨道
+内阴影+圆角*/
+pre::-webkit-scrollbar-track {
+  background-color:#F5F5F5;
+}
+/*定义滑块
+内阴影+圆角*/
+pre::-webkit-scrollbar-thumb {
+  background-color: rgb(69, 83, 100);
+}
+
+pre:active {
+  background-color: rgb(81, 95, 116);
+}
+</style>
+
+<div class="article-container">
+  <div class="article">
+    <h1 class="article-title">kafka</h1>
+    <div class="article-info">
+      <div class="article-info--item">
+        <div class="article-info--info">
+          
+          <div class="article-info--categories">
+            <span>分类：</span>
             
           </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/pyspark/">Spark（Pyspark基础编码环境） </a>
-          <div>
-            
+          
+          
+          <div class="article-info--tags">
+            <span>标签：</span>
             
           </div>
-          <div class="bg"></div>
+          
+          <p class="article-info--date">日期：2023-06-24 22:34:53</p>
         </div>
+        <img src="/imgs/default-cover.webp" alt="" class="article-cover">
       </div>
+    </div>
+    <article class="article-content">
+      <h1 id="安装Kafka集群"><a href="#安装Kafka集群" class="headerlink" title="安装Kafka集群"></a>安装Kafka集群</h1><p>1.上传安装包至&#x2F;export&#x2F;server路径下，并解压：</p>
+<p>cd  &#x2F;export&#x2F;server&#x2F; </p>
+<p>tar -zxvf kafka_2.12-2.4.1.tgz</p>
+<p><img src="/../kafka/wps1.jpg" alt="img"></p>
+<p>2.修改配置文件</p>
+<p>（1）进入配置文件目录</p>
+<p>cd &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config</p>
+<p>(2)编辑配置文件</p>
+<p>vi server.properties</p>
+<p>为依次增长的:0、1、2、3、4,集群中唯一 id –》从0开始，每台不能重复，第一块要改的</p>
+<p>broker.id&#x3D;0 </p>
+<p>—-Logbasic——</p>
+<p>数据存储的目录，第二块要改的</p>
+<p>log.dirs&#x3D;&#x2F;export&#x2F;data&#x2F;kafka-logs  </p>
+<p>—zookeeper—-</p>
+<p>指定 zk 集群地址，第四块要改的</p>
+<p>zookeeper.connect&#x3D;node1:2181,node2:2181,node3:2181</p>
+<p><img src="/../kafka/wps2.jpg" alt="img"></p>
+<p><img src="/../kafka/wps3.jpg" alt="img"></p>
+<p><img src="/../kafka/wps4.jpg" alt="img"></p>
+<p>3.将配置好的kafka分发至node1和node2：</p>
+<p>scp -r &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1 root@node2:&#x2F;export&#x2F;server&#x2F;</p>
+<p>scp -r &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1 root@node3:&#x2F;export&#x2F;server&#x2F;</p>
+<p>4.配置环境变量</p>
+<p><img src="/../kafka/wps5.jpg" alt="img"></p>
+<p>5.在node2.node3上修改server.propertie中的brokeer编号：</p>
+<p>vim &#x2F;export&#x2F;server&#x2F;kafka&#x2F;config&#x2F;server.propertie</p>
+<p>broker.id&#x3D;1 </p>
+<p>broker.id&#x3D;2</p>
+<p>(broker.id 不能重复)</p>
+<p>6.创建kafka一键启停脚本：</p>
+<p>!&#x2F;bin&#x2F;bash</p>
+<p>if [ $# -eq 0 ]</p>
+<p>then</p>
+<p>echo “please input param:start stop”</p>
+<p>else</p>
+<p>if [ $1 &#x3D; start  ]</p>
+<p>then</p>
+<p>for i in {1..3}</p>
+<p>do</p>
+<p>echo “${1}ing node${i}”</p>
+<p>ssh node${i} “source &#x2F;etc&#x2F;profile;&#x2F;export&#x2F;server&#x2F;kafka&#x2F;bin&#x2F;kafka-server-start.sh -daemon &#x2F;export&#x2F;server&#x2F;kafka&#x2F;config&#x2F;server.properties”</p>
+<p>done</p>
+<p>fi</p>
+<p>if [ $1 &#x3D; stop ]</p>
+<p>then</p>
+<p>for i in {1..3}</p>
+<p>do</p>
+<p>ssh node${i} “source &#x2F;etc&#x2F;profile;&#x2F;export&#x2F;server&#x2F;kafka&#x2F;bin&#x2F;kafka-server-stop.sh”</p>
+<p>done</p>
+<p>fi</p>
+<p>fi</p>
+<p><img src="/../kafka/wps6.jpg" alt="img"></p>
+<h1 id="Kafka命令行操作"><a href="#Kafka命令行操作" class="headerlink" title="Kafka命令行操作"></a>Kafka命令行操作</h1><p><strong>（1）创建topic</strong>：创建一个topic（主题）。Kafka中所有的消息都是保存在主题中，要生产消息到Kafka，首先必须要有一个确定的主题。</p>
+<p>基本方式：.&#x2F;kafka-topics.sh –create –topic tpc_1 –partitions 2 –replication-factor 2 –zookeeper node1:2181</p>
+<p>–replication-factor 副本数量</p>
+<p>–partitions 分区数量</p>
+<p>–topic topic 名称</p>
+<p><img src="/../kafka/wps7.jpg" alt="img"></p>
+<p><strong>（2）删除topic：</strong>bin&#x2F;kafka-topics.sh  –delete –topic tpc_1 –zookeeper node1：2181</p>
+<p>（异步线程去删除）删除 topic,需要一个参数处于启用状态: delete.topic.enable &#x3D; true,否则删不掉</p>
+<p>使用 kafka-topics.sh 脚本删除主题的行为本质上只是在 ZooKeeper 中的 &#x2F;admin&#x2F;delete_topics 路径下 建一个与待删除主题同名的节点,以标记该主题为待删除的状态。与创建主题相同的是,真正删除主题的动作也是由 Kafka 的控制器负责完成的。</p>
+<p><strong>（3）查看topic：</strong></p>
+<p>列出当前系统中的所有 topic ：</p>
+<p>bin&#x2F;kafka-topics.sh –zookeeper node1:2181,node2:2181,node3:2181 -list</p>
+<p><img src="/../kafka/wps8.jpg" alt="img"></p>
+<p>查看 topic 详细信息：bin&#x2F;kafka-topics.sh –describe –topic tpc_1 –zookeper node1:2181 </p>
+<p><img src="/../kafka/wps9.jpg" alt="img"></p>
+<p><strong>（4）增加分区数：</strong>bin&#x2F;kafka-topics.sh –alter –topic tpc_1 –partitions 3 –zookeeper node1:2181</p>
+<p><strong>（5）****动态配置topic参数</strong>：添加、修改配置参数(开启压缩发送传输种提高kafka消息吞吐量的有效办法(‘gzip’, ‘snappy’, ‘lz4’, ‘zstd’))</p>
+<p>bin&#x2F;kafka-configs.sh –zookeeper node1:2181 –entity-type topics –entity-name tpc_1 –alter –add-config compression.type&#x3D;gzip </p>
+<p><img src="/../kafka/wps10.jpg" alt="img"></p>
+<p>删除配置参数</p>
+<p>bin&#x2F;kafka-configs.sh –zookeeper node1:2181 –entity-type topics –entity-name tpc_1 –alter –delete-config compression.type</p>
+<p><img src="/../kafka/wps11.jpg" alt="img"></p>
+<p><strong>（6）生产消息到Kafka进行消费：</strong>使用Kafka内置的测试程序，生产一些消息到Kafka的tpc_1主题中</p>
+<p>bin&#x2F;kafka-console-producer.sh –broker-list node1:9092, node2:9092, node3:9092 –topic tpc_1</p>
+<p>&gt;lu han</p>
+<p>&gt;luo yun xi</p>
+<p>&gt;kafka</p>
+<p>消费消息(从头开始)</p>
+<p>bin&#x2F;kafka-console-consumer.sh –bootstrap-server node1:9092, node2:9092, node1:9092 –topic tpc_1 –from-beginning</p>
+<p>指定要消费的分区,和要消费的起始 offset </p>
+<p>bin&#x2F;kafka-console-consumer.sh –bootstrap-server node1:9092,node2:9092,node3:9092 –topic tcp_1 –offset 2 –partition 0</p>
+<p><img src="/../kafka/wps12.jpg" alt="img"></p>
+<p><img src="/../kafka/wps13.jpg" alt="img"></p>
+<p><img src="/../kafka/wps14.jpg" alt="img"></p>
+<p><strong>（7）Kafka的生产者&#x2F;消费者&#x2F;工具</strong></p>
+<p>推荐大家开发的使用Kafka tool：</p>
+<p>浏览Kafka集群节点、多少个topic、多少个分区</p>
+<p>创建topic&#x2F;删除topic</p>
+<p>浏览zookeeper中的数据</p>
+<p>1、右键点击创建新的链接：</p>
+<p><img src="/../kafka/wps15.jpg" alt="img"></p>
+<p>2、填写Kafka的集群名称、选择Kafka的版本为2.4并输入zookeeper的开机地址：</p>
+<p><img src="/../kafka/wps16.jpg" alt="img"></p>
+<p>点击test按钮产看是否能够连接成功，能连接成功点击add按钮添加Kafka集群：</p>
+<p><img src="/../kafka/wps17.jpg" alt="img"></p>
+<p>3、点击创建topic，输入topic的名称，默认分区和副本的数量为1</p>
+<p><img src="/../kafka/wps18.jpg" alt="img"></p>
+<p><img src="/../kafka/wps19.jpg" alt="img"></p>
+<p>4、查看Kafka分区中的数据：</p>
+<p><img src="/../kafka/wps20.jpg" alt="img"></p>
+<p><strong>（8）Kafka的基准测试</strong></p>
+<p>基准<a target="_blank" rel="noopener" href="http://www.blogjava.net/qileilove/archive/2012/07/05/382241.html">测试</a>是一种测量和评估软件性能指标的活动。我们可以通过基准测试，了解到软件、硬件的性能水平。主要测试负载的执行时间、传输速度、吞吐量、资源占用率等。</p>
+<p>Kafka中提供了内置的性能测试工具：</p>
+<p>生产者：测试生产每秒传输的数据量（多少条数据、多少M的数据）</p>
+<p>消费者：测试消费每条拉取的数据量</p>
+<p>以下进行测试：</p>
+<p>kafka-producer-perf-test.sh –topic tpc_1 –num-records 100000 –record-size 1024 –throughput -1 –producer-props bootstrap.servers&#x3D;node1:9092 acks&#x3D;1</p>
+<p><img src="/../kafka/wps21.jpg" alt="img"></p>
+<p>kafka-producer-perf-test.sh –topic tpc_3 –num-records 100000 –record-size 1024 –throughput -1 –producer-props bootstrap.servers&#x3D;node1:9092 acks&#x3D;1</p>
+<p><img src="/../kafka/wps22.jpg" alt="img"></p>
+<p>kafka-producer-perf-test.sh –topic tpc_6 –num-records 100000 –record-size 1024 –throughput -1 –producer-props bootstrap.servers&#x3D;node1:9092 acks&#x3D;1</p>
+<p><img src="/../kafka/wps23.jpg" alt="img"></p>
+<h1 id="Kafka-Java-API开发"><a href="#Kafka-Java-API开发" class="headerlink" title="Kafka Java API开发"></a>Kafka Java API开发</h1><p><strong>1、API开发：producer生产者</strong></p>
+<p><strong>生产者api示例</strong></p>
+<p>一个正常的生产逻辑需要以下几个步骤:</p>
+<p>（1）配置生产者客户端参数</p>
+<p>（2）创建相应的生产者实例</p>
+<p>（3）构建待发送的消息</p>
+<p>（4）发送消息</p>
+<p>（5）关闭生产者实例</p>
+<p>例如进行一个生产者开发实例演示，首先要引入maven依赖，如图：</p>
+<p><img src="/../kafka/wps24.jpg" alt="img"></p>
+<p><img src="/../kafka/wps25.jpg" alt="img"></p>
+<p>接着配置生产者的参数，在 Kafka 生产者客户端 KatkaProducer 中有 3 个参数是必填的。</p>
+<p>-bootstrap.servers </p>
+<p>-key.serializer </p>
+<p>-value.serializer，如图：</p>
+<p><img src="/../kafka/wps26.jpg" alt="img"></p>
+<p>然后创建相应的生产者实例以及构建待发送的消息，构建完成后发送消息：</p>
+<p><img src="/../kafka/wps27.jpg" alt="img"></p>
+<p>最后关闭生产者实例：</p>
+<p><img src="/../kafka/wps28.jpg" alt="img"></p>
+<p>在服务器上我们就可以查看接收到的消息：</p>
+<p><img src="/../kafka/wps29.jpg" alt="img"></p>
+<p>然后进入Kafka安装目录，执行bin&#x2F;kafka-console-consumer.sh –bootstrap-server node1:9092, node2:9092, node1:9092 –topic tpc_1 –from-beginning 即可查看：</p>
+<p><img src="/../kafka/wps30.jpg" alt="img"></p>
+<p>除此之外，我们还有ProducerCallbackDemo实例，其生产也需要遵循以下几个步骤，如图：</p>
+<p><img src="/../kafka/wps31.jpg" alt="img"></p>
+<p><img src="/../kafka/wps32.jpg" alt="img">	</p>
+<p>最终执行结果为：</p>
+<p><img src="/../kafka/wps33.jpg" alt="img">																													</p>
+<p><strong>2、API开发：consumer消费者</strong></p>
+<p><strong>消费者Api示例</strong></p>
+<p>一个正常的消费逻辑需要以下几个步骤：</p>
+<p>（1）配置消费者客户端参数</p>
+<p>（2）创建相应的消费者实例</p>
+<p>（3）订阅主题</p>
+<p>（4）拉取消息并消费</p>
+<p>（5）提交消费位移offset</p>
+<p>（6）关闭消费者实例</p>
+<p>消费者实例1：ConsumerDemo</p>
+<p><img src="/../kafka/wps34.jpg" alt="img"></p>
+<p><img src="/../kafka/wps35.jpg" alt="img"></p>
+<p><img src="/../kafka/wps36.jpg" alt="img"></p>
+<p>执行结果：</p>
+<p><img src="/../kafka/wps37.jpg" alt="img"></p>
+<p><img src="/../kafka/wps38.jpg" alt="img"></p>
+<p>消费者实例2：ConsumerDemo1，如图所示：</p>
+<p><img src="/../kafka/wps39.jpg" alt="img"></p>
+<p><img src="/../kafka/wps40.jpg" alt="img"></p>
+<p>执行结果：</p>
+<p><img src="/../kafka/wps41.jpg" alt="img"></p>
+<p>消费者实例3：ConsumerDemo2，如图所示：</p>
+<p><img src="/../kafka/wps42.jpg" alt="img"></p>
+<p><img src="/../kafka/wps43.jpg" alt="img"></p>
+<p><img src="/../kafka/wps44.jpg" alt="img"></p>
+<p>执行结果：</p>
+<p><img src="C:\Users\王雨晴\wyq.blog\source\kafka\wps45.jpg" alt="img"></p>
+<p>消费者实例4：ConsumerSeekOffset，如图所示：</p>
+<p><img src="/../kafka/wps46.jpg" alt="img"></p>
+<p><img src="/../kafka/wps47.jpg" alt="img"></p>
+<p>执行结果为：</p>
+<p><img src="/../kafka/wps48.jpg" alt="img"></p>
+<p><img src="/../kafka/wps49.jpg" alt="img"></p>
+
+    </article>
+    
+    <div class="read-nums">
+      <!-- id 将作为查询条件 -->
+      <span id="2023/06/24/Kafka/" class="leancloud_visitors" data-flag-title="Your Article Title">
+        <em class="post-meta-item-text">浏览量</em>
+        <i class="leancloud-visitors-count"></i>
+      </span>
+    </div>
+    <div class="comments-intro">
+      <h2>评论区</h2>
+      <p>欢迎你留下宝贵的意见，昵称输入QQ号会显示QQ头像哦~</p>
+    </div>
+    <div id="vcomments" class="vcomments"></div>
     
   </div>
-  <div class="index-center">
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/13/stand-alone%E5%92%8CHA%E5%92%8CYarn/">stand-alone,HA,Yarn </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
+  <div class="article-catelogue">
+    <div class="article-catelogue--wrapper">
+      <div class="catelogue catelogue-1">
+        <h3>目录</h3>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Kafka%E9%9B%86%E7%BE%A4"><span class="toc-number">1.</span> <span class="toc-text">安装Kafka集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">Kafka命令行操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-Java-API%E5%BC%80%E5%8F%91"><span class="toc-number">3.</span> <span class="toc-text">Kafka Java API开发</span></a></li></ol>
       </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/spark-local/">Spark Local环境部署 </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-      <div class="index-article">
-        <!-- <img class="index-article--cover" data-cover="" src="/imgs/default-cover.webp" alt=""> -->
-        <div class="index-article--box">
-          <img class="index-article--cover" data-cover="imgs/default-cover.webp" alt="">
-        </div>
-        <div class="index-article--content">
-          <a href="/2023/06/09/Docker/">Docker </a>
-          <div>
-            
-            
-          </div>
-          <div class="bg"></div>
-        </div>
-      </div>
-    
-  </div>
-  <div class="index-right">
-    <div class="index-right-wrapper">
       
+        <div class="catelogue catelogue-2">
+           
+          
+            <p>
+              <span>下一篇</span>
+              <a href="/2023/06/13/stand-alone和HA和Yarn/">stand-alone,HA,Yarn</a>
+            </p>
+          
+        </div>
       
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">2023年06月</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 </div>
 
+<script src="http://cdn.yangxiang.cc/prism.js"></script>
 
 <script>
-  var allImgBoxs = document.querySelectorAll('.index-article--box');
-  var windowHeight = window.innerHeight;
-  var boxs = Array.from(allImgBoxs);
-  var timer = null;
-  boxs.forEach((box, idx) => {
-    if (!window.loadImageSet || !window.loadImageSet.includes(idx)) {
-      box.classList.add('img-loading');
-    } else {
-      const imgDom = box.querySelector('img');
-      imgDom.src = imgDom.dataset.cover;
-    }
-  });
+  // var定义，避免pjax重新进来造成的重复声明错误
+  var config = JSON.parse('{"enable":true,"appId":"Pf8zCXGEH1qsprnWfikVVujL-gzGzoHsz","appKey":"qOqoiUHhH1TGtLRUYURkLRQX","placeholder":"请留下你宝贵的意见吧~","meta":["nick"],"recordIP":true,"visitor":true,"enableQQ":true}')
+  new Valine({
+    el: '#vcomments',
+    appId: config.appId,
+    appKey: config.appKey,
+    placeholder: config.placeholder,
+    meta: config.meta,
+    recordIP: config.recordIP,
+    visitor: config.visitor,
+    enableQQ: config.enableQQ,
+    path: '2023/06/24/Kafka/'
+  })
+</script>
 
-  function scrollFn() {
-    if (timer) {
-      return;
-    }
-    timer = setTimeout(() => {
-      loadImage();
-      timer = null;
-    }, 100)
-  }
 
-  if (!window.loadedImage) {
-    document.addEventListener('scroll', scrollFn);
-  }
+<script>
+  $(document).on('pjax:complete', function() {
+    const tocs = document.querySelector('.toc')
+    const links = tocs ? tocs.querySelectorAll('a') : []
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        const href = decodeURIComponent(e.href)
+        href.search(/#(.*)/)
+        const id = RegExp.$1
+        const target = document.querySelector('#' + id)
+        const top = target.offsetTop
+        document.documentElement.scrollTo({
+          top: top - 100,
+          behavior: 'smooth'
+        })
+        e.preventDefault()
+      })
+    })
+  })
+</script> 
 
-  function loadImage() {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop;
-    if (boxs.every(box => box.loadedImage)) {
-      document.removeEventListener('scroll', scrollFn);
-      window.loadedImage = 1;
-      return;
-    }
-    boxs.forEach((box, idx) => {
-      if (box.loadedImage) {
-        return;
-      }
-      if (box.getBoundingClientRect().top < windowHeight) {
-        const imgDom = box.querySelector('img');
-        imgDom.src = imgDom.dataset.cover;
-        imgDom.onload = () => {
-          box.classList.remove('img-loading')
-          box.loadedImage = true;
-          if (window.loadImageSet) {
-            window.loadImageSet.push(idx);
-          } else {
-            window.loadImageSet = [];
-            window.loadImageSet.push(idx);
-          }
-        }
-      }
-    });
-  }
-
-  window.loadImageFn = loadImage;
-</script> </div>
+</div>
       <div class="main-right-wrapper"><div class="main-right">
   <div class="main-right--board">
     <div class="main-right--title">
