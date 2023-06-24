@@ -193,7 +193,7 @@
   const ipt = document.querySelector('#search-input')
   const btn = document.querySelector('#search-btn')
   const layer = document.querySelector('#search-layer')
-  const posts = JSON.parse(`[{"title":"kafka","path":"2023/06/24/Kafka/"},{"title":"Docker","path":"2023/06/09/Docker/"},{"title":"Git","path":"2023/06/12/Git配置/"},{"title":"Spark（Pyspark基础编码环境）","path":"2023/06/09/pyspark/"},{"title":"Spark Local环境部署","path":"2023/06/09/spark-local/"},{"title":"hive部署","path":"2023/06/09/hive/"},{"title":"stand-alone,HA,Yarn","path":"2023/06/13/stand-alone和HA和Yarn/"}]`)
+  const posts = JSON.parse(`[{"title":"Git","path":"2023/06/12/Git配置/"},{"title":"Docker","path":"2023/06/09/Docker/"},{"title":"hive部署","path":"2023/06/09/hive/"},{"title":"kafka","path":"2023/06/24/Kafka/"},{"title":"Spark（Pyspark基础编码环境）","path":"2023/06/09/pyspark/"},{"title":"Spark Local环境部署","path":"2023/06/09/spark-local/"},{"title":"stand-alone,HA,Yarn","path":"2023/06/13/stand-alone和HA和Yarn/"}]`)
   ipt.addEventListener('keyup', e => {
     if (e.key === 'Enter') {
       handleSearch()
